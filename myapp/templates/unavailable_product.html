@@ -1,0 +1,29 @@
+{% extends 'seller_header.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Unavailable Products</title>
+</head>
+<body>
+<div class="row">
+	{% for s in products %}
+		<div id="box" class="col-sm-3">
+			<div class="container">
+		  		<div class="card" style="width:250px">
+		    		<img class="card-img-top" src="{{s.product_image.url}}" alt="Card image" width=250px height=250px>
+		    			<div class="card-body">
+		      				<h4 class="card-title">{{s.product_name}}</h4>
+		      				<p class="card-text">{{s.product_price}}</p>
+		      				<a href="{% url 'product_detail' pk=s.pk %}">More Detail</a>
+		    			</div>
+		  		</div>	  
+			</div>
+		</div> 
+	{% endfor %}
+</div>
+</body>
+</html>
+{% endblock %}

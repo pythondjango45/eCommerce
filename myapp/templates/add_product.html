@@ -1,0 +1,69 @@
+{% extends 'seller_header.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Product</title>
+	<style>
+         table, th, td {  
+                text-align:center; 
+            } 
+            th, td { 
+                padding: 10px; 
+                background-color:orange; 
+            }
+            h1{
+            	color: red;
+            }
+      </style>
+</head>
+<body>
+<center>
+	<h1>Add Product</h1>
+	{% if msg %}
+		<b>{{msg}}</b>
+	{% endif %}
+	<form name="add_product" method="post" action="{% url 'add_product' %}" enctype="multipart/form-data">
+		{% csrf_token %}
+		<table>
+			<tr>
+				<td>Select Category</td>
+				<td>
+					<input type="radio" name="product_category" value="fashion">Fasion
+					<input type="radio" name="product_category" value="electronic">Electronic
+					<input type="radio" name="product_category" value="mobile">Mobile
+				</td>
+			</tr>
+			
+			<tr>
+				<td>Product Name</td>
+				<td><input type="text" name="product_name" required="required"></td>
+			</tr>
+			<tr>
+				<td>Product Price</td>
+				<td><input type="text" name="product_price" required="required"></td>
+			</tr>
+			<tr>
+				<td>Product Description</td>
+				<td><textarea rows="5" cols="22" name="product_desc"></textarea></td>
+			</tr>
+			
+			<tr>
+				<td>Product Image</td>
+				<td><input type="file" name="product_image"></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" name="submit" value="Add Product">
+				</td>
+			</tr>
+		</table>
+	</form>
+</center>
+
+</body>
+</html>
+
+{% endblock %}

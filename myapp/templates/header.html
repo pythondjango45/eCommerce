@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <SCRIPT type="text/javascript">
+  window.history.forward();
+  function noBack() { window.history.forward(); }
+</SCRIPT>
+</head>
+<body onload="noBack();" 
+  onpageshow="if (event.persisted) noBack();" onunload="">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">e-Commerce</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/">Home</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Category <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="{% url 'fashion' %}">Fashion</a></li>
+          <li><a href="{% url 'electronic' %}">Electronic</a></li>
+          <li><a href="{% url 'mobile' %}">Mobile</a></li>
+        </ul>
+      </li>
+      <li><a href="{% url 'contact' %}">Contact</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      {% if request.session.fname %}
+      <img src="{{request.session.image}}" height="50px" width="50px">
+        <li><a href="{% url 'mycart' %}"><span class="glyphicon glyphicon-shopping-cart"></span> Cart({{request.session.len_cart}})</a></li>
+        <li><a href="{% url 'mywishlist' %}"><span class="glyphicon glyphicon-heart"></span> WishList({{request.session.len_wishlist}})</a></li>
+        <li><a href="{% url 'change_password' %}"><span class="glyphicon glyphicon-edit"></span> Change Password</a></li>
+        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout {{request.session.fname}} {{request.session.lname}}</a></li>
+      {% else %}
+        <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      {% endif %}
+      
+    </ul>
+  </div>
+</nav>
+{% block content %}
+{% endblock %}
+{% block javascript %}{% endblock %}
+</body>
+</html>

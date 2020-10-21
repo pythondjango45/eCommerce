@@ -1,0 +1,103 @@
+{% extends 'header.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Signup Page</title>
+	<style>
+         table, th, td {  
+                text-align:center; 
+            } 
+            th, td { 
+                padding: 10px; 
+                background-color:orange; 
+            }
+            h1{
+            	color: red;
+            }
+      </style>
+{% block javascript %}
+<script type="text/javascript">
+    $("#id_username").change(function () {
+      var username = $(this).val();
+  
+      $.ajax({
+      	type: 'POST',
+        url: {% url "validate_username" %},
+        data: {
+          'username': username
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            alert("A user with this username already exists.");
+          }
+          else{
+          	alert("User Name Available.");	
+          }
+        }
+      });
+
+    });
+  </script>
+{% endblock %}
+</head>
+<body>
+<center>
+	<h1>Sign Up</h1>
+	{% if msg %}
+		<b>{{msg}}</b>
+	{% endif %}
+	<form name="signup" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+		{% csrf_token %}
+		<table>
+			<tr>
+				<td>User Type</td>
+				<td>
+					<input type="radio" name="usertype" value="user">User&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="usertype" value="seller">Seller
+				</td>
+			</tr>
+			<tr>
+				<td>First Name</td>
+				<td><input type="text" name="fname" required="required"></td>
+			</tr>
+			<tr>
+				<td>Last Name</td>
+				<td><input type="text" name="lname" required="required"></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><input type="text" name="email" id="id_username" required="required"></td>
+			</tr>
+			<tr>
+				<td>Mobile</td>
+				<td><input type="text" name="mobile" required="required"></td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="password" name="password"></td>
+			</tr>
+			<tr>
+				<td>Confirm Password</td>
+				<td><input type="password" name="cpassword"></td>
+			</tr>
+			<tr>
+				<td>Image</td>
+				<td><input type="file" name="image"></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" name="submit" value="Sign Up">
+				</td>
+			</tr>
+		</table>
+	</form>
+</center>
+
+</body>
+</html>
+
+{% endblock %}

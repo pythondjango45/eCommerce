@@ -1,0 +1,45 @@
+{% extends 'header.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Product Detail</title>
+</head>
+<body>
+<div class="row">
+	
+	<div id="box" class="col-sm-3">
+		<div class="container">
+	  		<div class="card" style="width:250px">
+	    		<img class="card-img-top" src="{{product.product_image.url}}" alt="Card image" width=250px height=250px>
+	    			<div class="card-body">
+	      				<h4 class="card-title">{{product.product_name}}</h4>
+	      				<h4 class="card-title">{{product.product_desc}}</h4>
+	      				<p class="card-text">{{product.product_price}}</p>
+	      				{% if request.session.fname %}
+	      					{% if flag1 == True %}
+	      						<a href="{% url 'add_to_cart' pk=product.pk %}">Add To Cart</a>
+	      					{% else %}
+	      						<a href="{% url 'remove_from_cart' pk=product.pk %}">Remove From Cart</a>
+	      					{% endif %}
+	      					
+	      					&nbsp;&nbsp;&nbsp;&nbsp;
+	      					{% if flag == True %}
+	      						<a href="{% url 'add_to_wishlist' pk=product.pk %}">Add To WishList</a>
+	      					{% else %}
+	      						<a href="{% url 'remove_from_wishlist' pk=product.pk %}">Remove From WishList</a>
+	      					{% endif %}
+	      				{% else %}
+	      					<a href="{% url 'login' %}">Login</a>
+	      				{% endif %}
+	      			</div>
+	  		</div>	  
+		</div>
+	</div> 
+
+</div>
+</body>
+</html>
+{% endblock %}

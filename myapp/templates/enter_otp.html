@@ -1,0 +1,58 @@
+{% extends 'header.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Enter OTP</title>
+	<style>
+         table, th, td {  
+                text-align:center; 
+            } 
+            th, td { 
+                padding: 10px; 
+                background-color:orange; 
+            }
+            h1{
+            	color: red;
+            }
+      </style>
+</head>
+<body  oncontextmenu="return false;">
+<center>
+	<h1>Enter OTP</h1>
+	{% if msg %}
+		<b>{{msg}}</b>
+	{% endif %}
+	<form name="enter_otp" method="post" action="{% url 'verify_otp' %}">
+		{% csrf_token %}
+		<table>
+			<tr>
+				<td><input type="hidden" name="otp" value="{{otp}}"></td>
+				<td><input type="hidden" name="email" value="{{email}}"></td>
+				<td><input type="hidden" name="myvar" value="{{myvar}}"></td>
+			</tr>
+			<tr>
+				<td>Enter OTP</td>
+				<td><input type="text" name="uotp" required="required"></td>
+			</tr>
+			
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" name="submit" value="Verify OTP">
+				</td>
+			</tr>
+		</table>
+	</form>
+</center>
+<script language=JavaScript>
+var message = "function disabled";
+function rtclickcheck(keyp){ if (navigator.appName == "Netscape" && keyp.which == 3){ alert(message); return false; }
+if (navigator.appVersion.indexOf("MSIE") != -1 && event.button == 2) { alert(message); return false; } }
+document.onmousedown = rtclickcheck;
+</script>
+</body>
+</html>
+
+{% endblock %}

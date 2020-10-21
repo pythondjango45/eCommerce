@@ -1,0 +1,39 @@
+{% extends 'header.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cart Product</title>
+</head>
+<body>
+	{% if msg %}
+		<center><b><h2>{{msg}}</h2></b></center>
+	{% endif %}
+	<center>
+		<form method="post" action="{% url 'pay' %}">
+			{% csrf_token %}
+			Total Price : <input type="text" name="amount" value="{{total_price}}" readonly="readonly">
+			<input type="submit" value="Buy Now">
+		</form>
+	</center>
+<div class="row">
+	{% for s in mycart %}
+		<div id="box" class="col-sm-3">
+			<div class="container">
+		  		<div class="card" style="width:250px">
+		    		<img class="card-img-top" src="{{s.product.product_image.url}}" alt="Card image" width=250px height=250px>
+		    			<div class="card-body">
+		      				<h4 class="card-title">{{s.product.product_name}}</h4>
+		      				<p class="card-text">{{s.product.product_price}}</p>
+		      				<a href="{% url 'user_product_detail' pk=s.product.pk %}">More Detail</a>
+		    			</div>
+		  		</div>	  
+			</div>
+		</div> 
+	{% endfor %}
+</div>
+</body>
+</html>
+{% endblock %}

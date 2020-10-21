@@ -1,0 +1,54 @@
+{% extends 'seller_header.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Index Page</title>
+</head>
+<body>
+<div class="row">
+	
+	<div id="box" class="col-sm-3">
+		<div class="container">
+	  		<div class="card" style="width:250px">
+	    		<img class="card-img-top" src="{{product.product_image.url}}" alt="Card image" width=250px height=250px>
+	    			<div class="card-body">
+	      				<h4 class="card-title">{{product.product_name}}</h4>
+	      				<h4 class="card-title">{{product.product_desc}}</h4>
+	      				<p class="card-text">{{product.product_price}}</p>
+	      				<p class="card-text">{{product.product_stock}}</p>
+	      				{% if product.product_stock == 'available' %}
+	      					<form name="product_unavailable" method="post" action="{% url 'product_unavailable' pk=product.pk %}">
+	      						{% csrf_token %}
+	      						<input type="submit" name="submit" value="Make Unavailable">
+	      					</form>
+	      				
+	      				{% else %}
+	      					<form name="product_unavailable" method="post" action="{% url 'product_unavailable' pk=product.pk %}">
+	      						{% csrf_token %}
+	      						<input type="submit" name="submit" value="Make Available">
+	      					</form>
+	      				{% endif %}
+	      				
+	      					<form name="product_edit" method="post" action="{% url 'edit_product' pk=product.pk %}">
+	      						{% csrf_token %}
+	      						<input type="submit" name="submit" value="Edit">
+	      					</form>
+	      				
+	      			</div>
+	  		</div>	  
+		</div>
+	</div> 
+
+</div>
+</body>
+</html>
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href);
+}
+</script>
+
+{% endblock %}
