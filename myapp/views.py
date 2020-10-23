@@ -95,7 +95,7 @@ def contact(request):
 
 def signup(request):
 	if request.method=="POST":
-		username=request.POST['username']
+		username=request.POST['email']
 		if username:
 			data={'is_taken':User.objects.filter(email__iexact=username).exists()}
 			return JsonResponse(data)
